@@ -1,0 +1,38 @@
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/tasks")
+public class TaskController {
+    @Autowired
+    private TaskRepository taskRepository;
+
+    @GetMapping
+    public Page<Task> getTasks(@RequestParam(defaultValue = "0") int page,
+                               @RequestParam(defaultValue = "10") int size) {
+        return taskRepository.findAll(PageRequest.of(page, size));
+    }
+
+    @GetMapping("/{id}")
+    public Task getTask(@PathVariable String id) {
+        return taskRepository.findById(id).orElse(null);
+    }
+
+    @PostMapping
+    public Task addTask(@RequestBody Task task) {
+        return taskRepository.save(task);
+    }
+
+    @PutMapping("/{id}")
+    public Task updateTask(@PathVariable String id, @RequestBody Task task) {
+        task.setId(id);
+        return taskRepository.save(task);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteTask(@PathVariable String id) {
+        taskRepository.deleteById(id);
+    }
+}
