@@ -6,7 +6,7 @@ public interface TaskRepository extends MongoRepository<Task, String> {
 }
 
 # MongoDB connection properties
-spring.data.mongodb.uri=mongodb://localhost:27017/todoapp
+spring.data.mongodb.uri=mongodb+srv://tuba:hussain@cluster0.nk7wd5y.mongodb.net/?retryWrites=true&w=majority
 spring.data.mongodb.database=todoapp
 
 # MongoDB template properties
